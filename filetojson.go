@@ -12,16 +12,17 @@ type FileInfo struct {
     Name     string   `json:"name"`
     Subjects []string `json:"subjects"`
     Size     string   `json:"size"`
+    Path     string   `json:"path"`
 }
 
 func formatSize(size int64) string {
     const (
-        KB = 1 << (10 * iota)
-        MB
-        GB
-        TB
-        PB
-        EB
+        KB = 1024 
+        MB = 1000000
+        GB = 1000000000
+        TB = 1000000000000
+        PB = 1000000000000000
+        EB = 1000000000000000000
     )
 
     var unit string
@@ -71,9 +72,10 @@ func main() {
                 }
             }
             file := FileInfo{
-                Name:     info.Name(),
+                Name: info.Name(),
                 Subjects: subjects,
-                Size:     formatSize(info.Size()),
+                Path: dir,
+                Size: formatSize(info.Size()),
             }
             filesInfo = append(filesInfo, file)
         }
